@@ -10,7 +10,7 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git credentialsId: '22c2a046-b613-4f15-9c60-5accc8d81ec1', 
+                git credentialsId: '94147482-e2d3-451e-9b0e-47e1b91dcd89', 
                 url: 'https://github.com/prasadmuley999/Jenkins-Zero-To-Hero',
                 branch: 'main'
            }
@@ -44,7 +44,7 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-                git credentialsId: '22c2a046-b613-4f15-9c60-5accc8d81ec1', 
+                git credentialsId: '94147482-e2d3-451e-9b0e-47e1b91dcd89', 
                 url: 'https://github.com/prasadmuley999/k8-manifest.git',
                 branch: 'main'
             }
@@ -53,7 +53,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([gitUsernamePassword(credentialsId: '94147482-e2d3-451e-9b0e-47e1b91dcd89', gitToolName: 'Default')]) {
                         sh '''
                         cat deploy.yaml
                         sed -i '' "s/32/${BUILD_NUMBER}/g" deploy.yaml
